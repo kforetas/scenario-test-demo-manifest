@@ -12,3 +12,7 @@ spec:
   destination:
     server: https://kubernetes.default.svc
     namespace: demo-st-test-001
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
