@@ -4,7 +4,7 @@ metadata:
   name: shopping-put
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "2"
   labels:
     app: shopping-put
     app.openshift.io/runtime: spring-boot
@@ -53,4 +53,4 @@ spec:
       volumes:
         - name: shopping-put-vol
           persistentVolumeClaim:
-            claimName: test-demo-efs-pvc1
+            claimName: demo-st-test-efs-pvc

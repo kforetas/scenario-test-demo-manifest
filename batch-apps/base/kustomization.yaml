@@ -2,3 +2,4 @@ resources:
   - shopping-put.yaml
   - shopping-pay-create.yaml
   - configmap-batch.yaml
+  - pvc-efs.yaml

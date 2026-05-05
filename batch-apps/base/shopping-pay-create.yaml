@@ -4,7 +4,7 @@ metadata:
   name: shopping-pay-create
   annotations:
     argocd.argoproj.io/hook: Sync
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "3"
   labels:
     app: shopping-pay-create
     app.openshift.io/runtime: spring-boot
@@ -43,4 +43,4 @@ spec:
       volumes:
         - name: shopping-pay-create-vol
           persistentVolumeClaim:
-            claimName: test-demo-efs-pvc1
+            claimName: demo-st-test-efs-pvc

@@ -2,6 +2,9 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: batch-params
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "1"
 data:
   SIMURATION_DATE: "20250512"
   SHOPPING_PUT_OUTPUT_FILENAME: "shopping_put_data.txt"
