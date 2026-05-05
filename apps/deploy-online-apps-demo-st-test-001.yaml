@@ -1,0 +1,18 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: deploy-online-apps-demo-st-test-001
+  namespace: openshift-gitops
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/kforetas/scenario-test-demo-manifest.git
+    path: online-apps/overlays/demo-st-test-001
+    targetRevision: HEAD
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: demo-st-test-001
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

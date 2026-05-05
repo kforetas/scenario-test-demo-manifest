@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: shopping-entry
+  labels:
+    app: shopping-entry
+    app.openshift.io/runtime: camel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: shopping-entry
+  template:
+    metadata:
+      labels:
+        app: shopping-entry
+    spec:
+      containers:
+        - name: shopping-entry
+          image: quay.io/rhn_consulting_kemori/shopping-entry:1.0.0
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8280
+              protocol: TCP
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_URL
+            - name: DB_PASSWARD
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_PASS
+            - name: DB_USER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_USER
+            - name: SIMURATION_DATE
+              valueFrom:
+                configMapKeyRef:
+                  name: date-params
+                  key: SIMURATION_DATE

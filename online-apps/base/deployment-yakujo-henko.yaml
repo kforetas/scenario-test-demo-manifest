@@ -1,0 +1,47 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: yakujo-henko
+  labels:
+    app: yakujo-henko
+    app.openshift.io/runtime: camel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: yakujo-henko
+  template:
+    metadata:
+      labels:
+        app: yakujo-henko
+    spec:
+      containers:
+        - name: yakujo-henko
+          image: quay.io/rhn_consulting_kemori/yakujo-henko:1.0.0
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8284
+              protocol: TCP
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_URL
+            - name: DB_PASSWARD
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_PASS
+            - name: DB_USER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_USER
+            - name: SIMURATION_DATE
+              valueFrom:
+                configMapKeyRef:
+                  name: date-params
+                  key: SIMURATION_DATE
+            - name: YAKUJO_HENKO_SPRV
+              value: pay-create/camel/demo/yakujo_henko/sprv

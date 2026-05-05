@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pay-create
+  labels:
+    app: pay-create
+    app.openshift.io/runtime: camel
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pay-create
+  template:
+    metadata:
+      labels:
+        app: pay-create
+    spec:
+      containers:
+        - name: pay-create
+          image: quay.io/rhn_consulting_kemori/pay-create:1.0.0
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8282
+              protocol: TCP
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_URL
+            - name: DB_PASSWARD
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_PASS
+            - name: DB_USER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_USER
+            - name: SIMURATION_DATE
+              valueFrom:
+                configMapKeyRef:
+                  name: date-params
+                  key: SIMURATION_DATE
