@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: batch-params
+data:
+  URL_PAY_CREATE_SPRV: pay-create-demo-st-test-002.apps.rosa.rosa-txqsd.tm8i.p3.openshiftapps.com/camel/demo/pay_create/sprv
+  URL_PAY_CREATE_SP1: pay-create-demo-st-test-002.apps.rosa.rosa-txqsd.tm8i.p3.openshiftapps.com/camel/demo/pay_create/sp1
