@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shopping-put
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "1"
+  labels:
+    app: shopping-put
+    app.openshift.io/runtime: spring-boot
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: shopping-put
+          image: quay.io/rhn_consulting_kemori/shopping-put:1.0.0
+          imagePullPolicy: Always
+          env:
+            - name: DB_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_URL
+            - name: DB_USER_NAME
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_USER
+            - name: DB_PASSWARD
+              valueFrom:
+                configMapKeyRef:
+                  name: database-params
+                  key: DB_PASS
+            - name: SIMURATION_DATE
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: SIMURATION_DATE
+            - name: OUTPUT_FILENAME
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: SHOPPING_PUT_OUTPUT_FILENAME
+            - name: DELETE_FILEPATH
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: SHOPPING_PUT_DELETE_FILEPATH
+          volumeMounts:
+            - name: shopping-put-vol
+              mountPath: /mnt/data
+      volumes:
+        - name: shopping-put-vol
+          persistentVolumeClaim:
+            claimName: test-demo-efs-pvc1

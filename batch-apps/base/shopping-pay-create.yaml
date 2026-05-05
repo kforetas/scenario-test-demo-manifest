@@ -1,0 +1,46 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: shopping-pay-create
+  annotations:
+    argocd.argoproj.io/hook: Sync
+    argocd.argoproj.io/sync-wave: "2"
+  labels:
+    app: shopping-pay-create
+    app.openshift.io/runtime: spring-boot
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: shopping-pay-create
+          image: quay.io/rhn_consulting_kemori/shopping-pay-create:1.0.0
+          imagePullPolicy: Always
+          env:
+            - name: SIMURATION_DATE
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: SIMURATION_DATE
+            - name: INPUT_FILENAME
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: SHOPPING_PUT_OUTPUT_FILENAME
+            - name: URL_PAY_CREATE_SPRV
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: URL_PAY_CREATE_SPRV
+            - name: URL_PAY_CREATE_SP1
+              valueFrom:
+                configMapKeyRef:
+                  name: batch-params
+                  key: URL_PAY_CREATE_SP1
+          volumeMounts:
+            - name: shopping-pay-create-vol
+              mountPath: /mnt/data
+      volumes:
+        - name: shopping-pay-create-vol
+          persistentVolumeClaim:
+            claimName: test-demo-efs-pvc1

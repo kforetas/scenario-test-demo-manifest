@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: batch-params
+data:
+  SIMURATION_DATE: "20250512"
+  SHOPPING_PUT_OUTPUT_FILENAME: "shopping_put_data.txt"
+  SHOPPING_PUT_DELETE_FILEPATH: "/mnt/data/shopping/shopping_put_data.txt"
+  URL_PAY_CREATE_SPRV: pay-create-env.domain/camel/demo/pay_create/sprv
+  URL_PAY_CREATE_SP1: pay-create-env.domain/camel/demo/pay_create/sp1
