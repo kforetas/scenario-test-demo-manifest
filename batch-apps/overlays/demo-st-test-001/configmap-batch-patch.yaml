@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: batch-params
 data:
-  URL_PAY_CREATE_SPRV: pay-create-demo-st-test-001.apps.rosa.rosa-txqsd.tm8i.p3.openshiftapps.com/camel/demo/pay_create/sprv
-  URL_PAY_CREATE_SP1: pay-create-demo-st-test-001.apps.rosa.rosa-txqsd.tm8i.p3.openshiftapps.com/camel/demo/pay_create/sp1
+  URL_PAY_CREATE_SPRV: pay-create-demo-st-test-001.apps.rosa.rosa-fdzn8.zfcp.p3.openshiftapps.com/camel/demo/pay_create/sprv
+  URL_PAY_CREATE_SP1: pay-create-demo-st-test-001.apps.rosa.rosa-fdzn8.zfcp.p3.openshiftapps.com/camel/demo/pay_create/sp1
